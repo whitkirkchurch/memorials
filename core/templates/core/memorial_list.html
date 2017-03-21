@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}List of Memorials{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>List of Memorials</h1>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Location
+        </th>
+    </tr>
+
+    {% for memorial in memorials %}
+
+    <tr>
+        <td>
+            <a href="{% url 'memorial' memorial.id %}">{{ memorial.pretty_name }}</a>
+        </td>
+        <td>
+            {{ memorial.location }}
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}
