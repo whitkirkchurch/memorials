@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Names{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>List of Names</h1>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Name
+        </th>
+    </tr>
+
+    {% for name in names %}
+
+    <tr>
+        <td>
+            <a href="{% url 'monument' name.monument.id %}">{{ name }}</a>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

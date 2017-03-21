@@ -16,6 +16,17 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from core import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+    url(r'^$', views.HomeView.as_view(), name='home'),
+
+    url(r'^locations$', views.LocationListView.as_view(), name='locations'),
+
+    url(r'^memorials$', views.MemorialListView.as_view(), name='memorials'),
+    url(r'^memorials/(?P<pk>[-\w]+)$', views.MemorialView.as_view(), name='memorial'),
+
+    url(r'^names$', views.NameListView.as_view(), name='names')
 ]
