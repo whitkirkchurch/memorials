@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 from markitup.fields import MarkupField
-from random_primary import RandomPrimaryIdModel
+import random_primary
 
 
 class Location(models.Model):
@@ -15,7 +15,7 @@ class Location(models.Model):
         return self.name
 
 
-class Memorial(RandomPrimaryIdModel):
+class Memorial(random_primary.RandomPrimaryIdModel):
 
     name = models.CharField(
         max_length=1024,
