@@ -1,2 +1,2 @@
 web: gunicorn memorials.wsgi
-release: python manage migrate
+release: python manage.py migrate
