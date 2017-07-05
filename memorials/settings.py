@@ -21,10 +21,10 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "yoe8f6g%_9dxu%u2v9kbs1c3q(ra6_yzhlw5ywme5wt7!nod&d"
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ['DEBUG']
 
 # Application definition
 
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'markitup',
+    'sorl.thumbnail',
+    'storages',
 
     'core',
 ]
@@ -69,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
             'debug': DEBUG,
         },
@@ -135,6 +138,16 @@ STATICFILES_DIRS = [
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
+# Don't use S3 for this, we may as well bake it into Heroku (hence whitenoise)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MARKITUP_FILTER = ('markdown.markdown', {'safe_mode': True})
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_URL = '/media/'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']

@@ -13,6 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 from django.conf.urls import url
 from django.contrib import admin
 
@@ -29,4 +33,4 @@ urlpatterns = [
     url(r'^memorials/(?P<pk>[-\w]+)$', views.MemorialView.as_view(), name='memorial'),
 
     url(r'^names$', views.NameListView.as_view(), name='names')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

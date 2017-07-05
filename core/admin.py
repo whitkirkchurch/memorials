@@ -13,12 +13,16 @@ class NameInline(admin.TabularInline):
     model = models.Name
 
 
+class MemorialImageInline(admin.StackedInline):
+    model = models.MemorialImage
+
+
 class MemorialAdmin(admin.ModelAdmin):
 
-    list_display = ('pretty_name', 'names_on_memorial', 'location')
+    list_display = ('pretty_name', 'names_on_memorial', 'location', 'complete')
 
     inlines = [
-        NameInline,
+        NameInline, MemorialImageInline
     ]
 
 admin.site.register(models.Memorial, MemorialAdmin)
@@ -36,3 +40,6 @@ class NameAdmin(admin.ModelAdmin):
     memorial_location.admin_order_field = 'memorial__location__name'
 
 admin.site.register(models.Name, NameAdmin)
+
+
+admin.site.register(models.MemorialImage)

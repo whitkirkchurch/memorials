@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load thumbnail %}
 
 {% block title %}{{ memorial.pretty_name }}{% endblock %}
 
@@ -64,6 +65,24 @@
 
 {% endif %}
 
+<h2>Images</h2>
+
+{% for image in memorial.images.all %}
+
+<div class="col-xs-6 col-md-3">
+    <a href="{{ image.image.url }}" class="thumbnail" data-toggle="lightbox" data-gallery="monument-images" data-title="{{ image }}">
+        {% thumbnail image.image "120x120" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ image }}">
+        {% endthumbnail %}
+    </a>
+</div>
+
+{% empty %}
+
+<p>We do not have any images of this memorial.</p>
+
+{% endfor %}
+
 </div>
 
 <div class="col-sm-3">
@@ -79,4 +98,13 @@
 
 </div>
 
+{% endblock %}
+
+{% block footer-js %}
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+});
+</script>
 {% endblock %}

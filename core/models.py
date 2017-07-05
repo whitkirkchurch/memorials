@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 from markitup.fields import MarkupField
+from sorl.thumbnail import ImageField
 
 import string
 import random
@@ -199,8 +200,24 @@ class Memorial(RandomPrimaryIdModel):
         related_name='memorials'
     )
 
+    latitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        blank=True
+    )
+
+    longitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        blank=True
+    )
+
+    complete = models.BooleanField(
+        help_text='Should this memorial\'s record be considered complete?',
+    )
+
     def __str__(self):
-        return '{} (at {})'.format(self.pretty_name(), self.location.name)
+        return '{} ({})'.format(self.pretty_name(), self.location.name)
 
     def pretty_name(self):
         if self.name:
@@ -253,3 +270,18 @@ class Name(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.given_names, self.family_name)
+
+
+class MemorialImage(models.Model):
+
+    image = ImageField(
+        upload_to='memorials'
+    )
+
+    memorial = models.ForeignKey(
+        'Memorial',
+        related_name='images'
+    )
+
+    def __str__(self):
+        return 'Image of {}'.format(self.memorial)
