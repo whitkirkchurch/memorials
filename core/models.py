@@ -203,13 +203,15 @@ class Memorial(RandomPrimaryIdModel):
     latitude = models.DecimalField(
         max_digits=9,
         decimal_places=6,
-        blank=True
+        blank=True,
+        null=True
     )
 
     longitude = models.DecimalField(
         max_digits=9,
         decimal_places=6,
-        blank=True
+        blank=True,
+        null=True
     )
 
     complete = models.BooleanField(
