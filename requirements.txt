@@ -1,6 +1,6 @@
 appdirs==1.4.3
-boto3==1.4.4
-botocore==1.5.78
+boto3==1.9.4
+botocore==1.12.4
 certifi==2017.1.23
 dj-database-url==0.4.1
 Django==2.1.1
@@ -22,7 +22,7 @@ oauth2client==4.0.0
 oauthlib==2.0.1
 olefile==0.44
 packaging==16.8
-Pillow==4.0.0
+Pillow==5.2.0
 psycopg2==2.7.5
 pyasn1==0.1.9
 pyasn1-modules==0.0.8
