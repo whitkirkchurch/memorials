@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-from markitup.fields import MarkupField
 from sorl.thumbnail import ImageField
 
 import string
@@ -190,7 +189,7 @@ class Memorial(RandomPrimaryIdModel):
         blank=True
     )
 
-    inscription = MarkupField(
+    inscription = models.TextField(
         help_text='The exact text of the inscription on this memorial.',
         blank=True
     )
