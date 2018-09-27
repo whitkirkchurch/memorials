@@ -6,3 +6,4 @@ whitenoise==4.1
 boto3==1.9.12
 sorl-thumbnail==12.5.0
 pillow==5.2.0
+django-randomslugfield==0.3.0
