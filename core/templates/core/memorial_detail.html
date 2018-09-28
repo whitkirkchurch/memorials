@@ -74,7 +74,7 @@
   <div class="col-xs-6 col-md-3">
       <a href="{{ image.image.url }}" class="thumbnail">
           {% thumbnail image.image "120x120" as im %}
-          <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ image }}">
+          <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ image }}" class="img-thumbnail">
           {% endthumbnail %}
       </a>
   </div>
