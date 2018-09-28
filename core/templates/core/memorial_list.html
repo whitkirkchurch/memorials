@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}List of Memorials{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="pb-2 mt-4 mb-2 border-bottom">
+    <h1>Locations</h1>
+  </div>
+
+  <table class="table table-striped">
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Location
+      </th>
+    </tr>
+
+    {% for memorial in memorials %}
+
+    <tr>
+      <td>
+        <a href="{% url 'memorial' memorial.slug %}">{{ memorial.pretty_name }}</a>
+      </td>
+      <td>
+        {{ memorial.location }}
+      </td>
+    </tr>
+
+    {% endfor %}
+
+  </table>
+
+</div>
+
+{% endblock %}

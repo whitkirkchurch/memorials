@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Locations{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="pb-2 mt-4 mb-2 border-bottom">
+    <h1>Locations</h1>
+  </div>
+
+  {% for location in locations %}
+
+  <h2>{{ location.name }}</h2>
+
+    <p>{{ location.description }}</p>
+
+    <p>{{ location.monuments.all|length }} monuments.</p>
+
+  {% endfor %}
+
+</div>
+
+{% endblock %}
