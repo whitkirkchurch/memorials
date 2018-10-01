@@ -10,6 +10,8 @@ import random
 from django.db.utils import IntegrityError
 from django.db import transaction
 
+from django.urls import reverse
+
 from randomslugfield import RandomSlugField
 
 
@@ -23,6 +25,9 @@ class Location(models.Model):
 
 
 class Memorial(models.Model):
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     slug = RandomSlugField(
         length=4,
@@ -101,6 +106,9 @@ class Memorial(models.Model):
         else:
 
             return None
+
+    def get_absolute_url(self):
+        return reverse('memorial', kwargs={'slug':self.slug})
 
 
 class Name(models.Model):

@@ -16,8 +16,32 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from django.contrib.sitemaps.views import sitemap
+
+from core.models import Memorial
+
+from django.contrib.sitemaps import Sitemap
+
+
+class MemorialsSitemap(Sitemap):
+    changefreq = "yearly"
+    priority = 0.5
+
+    def items(self):
+        return Memorial.objects.filter(complete=True)
+
+    def lastmod(self, obj):
+        return obj.updated_at
+
+
+sitemaps = {
+    'memorials': MemorialsSitemap
+}
+
 urlpatterns = [
     path('', include('core.urls')),
     path('markdownx/', include('markdownx.urls')),
     path('admin/', admin.site.urls),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap')
 ]
