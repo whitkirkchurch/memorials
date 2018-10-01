@@ -1,4 +1,5 @@
 from django.contrib import admin
+from markdownx.admin import MarkdownxModelAdmin
 
 from . import models
 
@@ -17,7 +18,7 @@ class MemorialImageInline(admin.StackedInline):
     model = models.MemorialImage
 
 
-class MemorialAdmin(admin.ModelAdmin):
+class MemorialAdmin(MarkdownxModelAdmin):
 
     list_display = ('pretty_name', 'names_on_memorial', 'location', 'complete')
 

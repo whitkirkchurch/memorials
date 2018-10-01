@@ -1,6 +1,8 @@
 from django.db import models
 
 from sorl.thumbnail import ImageField
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdownify
 
 import string
 import random
@@ -35,10 +37,14 @@ class Memorial(models.Model):
         blank=True
     )
 
-    inscription = models.TextField(
+    inscription = MarkdownxField(
         help_text='The exact text of the inscription on this memorial.',
         blank=True
     )
+
+    @property
+    def formatted_inscription(self):
+        return markdownify(self.inscription)
 
     location = models.ForeignKey(
         'Location',
