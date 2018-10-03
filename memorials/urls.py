@@ -30,7 +30,8 @@ class MemorialsSitemap(Sitemap):
     def items(self):
         return Memorial.objects.filter(complete=True)
 
-    def lastmod(self, obj):
+    @classmethod
+    def lastmod(cls, obj):
         return obj.updated_at
 
 
