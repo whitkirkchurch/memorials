@@ -71,6 +71,13 @@ class Memorial(models.Model):
         null=True
     )
 
+    cwgc = models.CharField(
+        verbose_name='CWGC Casualty',
+        max_length=128,
+        help_text='If known, the entry number of this casualty with the Commonwealth War Graves Commission.',
+        blank=True
+    )
+
     complete = models.BooleanField(
         help_text='Should this memorial\'s record be considered complete?',
     )
@@ -113,6 +120,7 @@ class Memorial(models.Model):
 
 class Name(models.Model):
 
+    honorific = models.CharField(max_length=256, blank=True)
     given_names = models.CharField(max_length=1024)
     family_name = models.CharField(max_length=1024)
 

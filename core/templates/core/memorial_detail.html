@@ -87,18 +87,30 @@
 
   </div>
 
-  <div class="col-sm-3">
+    <div class="col-sm-3">
 
-      <div class="panel panel-default">
-          <div class="panel-heading">
-              <h3 class="panel-title">Location</h3>
-          </div>
-          <div class="panel-body">
-              {{ memorial.location.name }}
-          </div>
-      </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Location</h3>
+            </div>
+            <div class="panel-body">
+                {{ memorial.location.name }}
+            </div>
+        </div>
 
-  </div>
+        {% if memorial.cwgc %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">CWGC</h3>
+            </div>
+            <div class="panel-body">
+                <p>This grave is registered with the Commonwealth War Graves Commission.</p>
+                <p><a href="https://www.cwgc.org/find-war-dead/casualty/{{ cwgc }}">See the record on the CWGC website</a>.</p>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
 
 </div>
 
