@@ -51,7 +51,7 @@
 
           <tr>
               <td>
-                  {{ name }}
+                  {% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b>
               </td>
               <td>
                   {{ name.date_of_birth }}
