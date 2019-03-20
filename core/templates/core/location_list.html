@@ -17,7 +17,7 @@
 
     <p>{{ location.description }}</p>
 
-    <p>{{ location.monuments.all|length }} monuments.</p>
+    <p>{{ location.memorials.all|length }} monument{{ location.memorials.all|length|pluralize }}.</p>
 
   {% endfor %}
 
