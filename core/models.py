@@ -18,7 +18,7 @@ from randomslugfield import RandomSlugField
 class Location(models.Model):
 
     name = models.CharField(max_length=1024)
-    description = models.TextField()
+    description = MarkdownxField()
 
     def __str__(self):
         return self.name

@@ -3,7 +3,8 @@ from markdownx.admin import MarkdownxModelAdmin
 
 from . import models
 
-class LocationAdmin(admin.ModelAdmin):
+
+class LocationAdmin(MarkdownxModelAdmin):
     list_display = ('name',)
 
 

@@ -15,7 +15,7 @@
 
   <h2>{{ location.name }}</h2>
 
-    <p>{{ location.description }}</p>
+    {{ location.description|safe }}
 
     <p>{{ location.memorials.all|length }} monument{{ location.memorials.all|length|pluralize }}.</p>
 
