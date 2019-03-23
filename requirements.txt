@@ -8,3 +8,4 @@ sorl-thumbnail==12.5.0
 pillow==5.2.0
 django-randomslugfield==0.3.0
 django-markdownx==2.0.24
+django-autoslug==1.9.4

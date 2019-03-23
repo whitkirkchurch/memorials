@@ -13,12 +13,14 @@ from django.db import transaction
 from django.urls import reverse
 
 from randomslugfield import RandomSlugField
+from autoslug import AutoSlugField
 
 
 class Location(models.Model):
 
     name = models.CharField(max_length=1024)
     description = MarkdownxField()
+    slug = AutoSlugField(populate_from='name', unique=True, editable=True)
 
     def __str__(self):
         return self.name
