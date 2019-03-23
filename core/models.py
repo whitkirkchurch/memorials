@@ -18,6 +18,9 @@ from autoslug import AutoSlugField
 
 class Location(models.Model):
 
+    class Meta:
+        ordering = ['name']
+
     name = models.CharField(max_length=1024)
     description = MarkdownxField()
     slug = AutoSlugField(populate_from='name', unique=True, editable=True)
@@ -27,6 +30,9 @@ class Location(models.Model):
 
 
 class Memorial(models.Model):
+
+    class Meta:
+        ordering = ['pretty_name']
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -42,6 +48,11 @@ class Memorial(models.Model):
         max_length=1024,
         help_text='If this memorial has a specific name, enter it here.',
         blank=True
+    )
+
+    pretty_name = models.CharField(
+        max_length=1024,
+        editable=False
     )
 
     inscription = MarkdownxField(
@@ -84,10 +95,14 @@ class Memorial(models.Model):
         help_text='Should this memorial\'s record be considered complete?',
     )
 
-    def __str__(self):
-        return '{} ({})'.format(self.pretty_name(), self.location.name)
+    def save(self, *args, **kw):
+        self.pretty_name = self.generate_pretty_name()
+        super(Memorial, self).save(*args, **kw)
 
-    def pretty_name(self):
+    def __str__(self):
+        return '{} ({})'.format(self.pretty_name, self.location.name)
+
+    def generate_pretty_name(self):
         if self.name:
             return self.name
         else:
@@ -121,6 +136,9 @@ class Memorial(models.Model):
 
 
 class Name(models.Model):
+
+    class Meta:
+        ordering = ['family_name', 'given_names']
 
     honorific = models.CharField(max_length=256, blank=True)
     given_names = models.CharField(max_length=1024)
