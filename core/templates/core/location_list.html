@@ -13,7 +13,7 @@
 
   {% for location in locations %}
 
-  <h2>{{ location.name }}</h2>
+  <h2><a href="{% url 'location' location.id %}">{{ location.name }}</a></h2>
 
     {{ location.description|safe }}
 
