@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'randomslugfield',
     'sorl.thumbnail',
     'markdownx',
-    'django_extensions',
 
     'core',
 ]
