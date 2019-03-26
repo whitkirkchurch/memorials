@@ -26,6 +26,20 @@ class MemorialImageInline(admin.StackedInline):
     model = models.MemorialImage
 
 
+def mark_published(modeladmin, request, queryset):
+    queryset.update(published=True)
+
+
+mark_published.short_description = "Mark selected memorials as published"
+
+
+def mark_unpublished(modeladmin, request, queryset):
+    queryset.update(published=False)
+
+
+mark_unpublished.short_description = "Mark selected memorials as unpublished"
+
+
 class MemorialAdmin(MarkdownxModelAdmin):
 
     list_display = ('slug', 'pretty_name', 'names_on_memorial', 'location', 'complete', 'published')
@@ -39,6 +53,8 @@ class MemorialAdmin(MarkdownxModelAdmin):
     inlines = [
         NameInline, MemorialImageInline
     ]
+
+    actions = [mark_published, mark_unpublished]
 
 
 admin.site.register(models.Memorial, MemorialAdmin)
