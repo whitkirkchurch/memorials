@@ -47,8 +47,6 @@ admin.site.register(models.Memorial, MemorialAdmin)
 class NameAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'date_of_birth', 'date_of_death', 'memorial_name', 'memorial_location')
 
-    list_filter = ('memorial_location',)
-
     search_fields = ('given_names', 'family_name')
 
     def memorial_name(self, obj):
