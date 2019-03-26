@@ -51,6 +51,14 @@ class TagListView(ListView):
     model = models.Tag
     context_object_name = 'tags'
 
+    def get_context_data(self,**kwargs):
+        context = super(TagListView,self).get_context_data(**kwargs)
+
+        for tag in context['tags']:
+            tag.memorial_count = tag.memorials.filter(published=True).count()
+
+        return context
+
 
 class TagView(DetailView):
 

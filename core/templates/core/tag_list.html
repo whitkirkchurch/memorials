@@ -15,7 +15,7 @@
 
   <h2><a href="{% url 'tag' tag.slug %}">{{ tag.name }}</a></h2>
 
-    <p class="lead">{{ tag.memorials.all|length }} monument{{ tag.memorials.all|length|pluralize }}</p>
+    <p class="lead">{{ tag.memorial_count }} monument{{ tag.memorial_count|pluralize }}</p>
 
     {{ tag.formatted_description|safe }}
 
