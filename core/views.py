@@ -19,6 +19,14 @@ class LocationListView(ListView):
     model = models.Location
     context_object_name = 'locations'
 
+    def get_context_data(self,**kwargs):
+        context = super(LocationListView,self).get_context_data(**kwargs)
+
+        for location in context['locations']:
+            location.memorial_count = location.memorials.filter(published=True).count()
+
+        return context
+
 
 class LocationView(DetailView):
 
@@ -28,7 +36,7 @@ class LocationView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        memorials = context['location'].memorials.all()
+        memorials = context['location'].memorials.filter(published=True)
 
         context['paginator'] = Paginator(memorials, 20)
 
@@ -52,7 +60,7 @@ class TagView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        memorials = context['tag'].memorials.all()
+        memorials = context['tag'].memorials.filter(published=True)
 
         context['paginator'] = Paginator(memorials, 20)
 
@@ -67,6 +75,9 @@ class MemorialListView(ListView):
     model = models.Memorial
     paginate_by = 20
     context_object_name = 'memorials'
+
+    def get_queryset(self):
+        return models.Memorial.objects.filter(published=True)
 
 
 class MemorialView(DetailView):

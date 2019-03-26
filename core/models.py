@@ -68,7 +68,8 @@ class Memorial(models.Model):
         length=4,
         exclude_upper=True,
         exclude_digits=True,
-        exclude_vowels=True
+        exclude_vowels=True,
+        help_text='A randomly generated set of letters used to uniquely identify this memorial.'
     )
 
     name = models.CharField(
@@ -87,6 +88,16 @@ class Memorial(models.Model):
         blank=True
     )
 
+    description = MarkdownxField(
+        help_text='Any additional information about this memorial (visible publicly).',
+        blank=True
+    )
+
+    notes = models.TextField(
+        help_text='Private notes about this memorial.',
+        blank=True
+    )
+
     @property
     def formatted_inscription(self):
         return markdownify(self.inscription)
@@ -99,7 +110,8 @@ class Memorial(models.Model):
 
     tags = models.ManyToManyField(
         'Tag',
-        related_name='memorials'
+        related_name='memorials',
+        blank=True
     )
 
     latitude = models.DecimalField(
@@ -125,6 +137,10 @@ class Memorial(models.Model):
 
     complete = models.BooleanField(
         help_text='Should this memorial\'s record be considered complete?',
+    )
+
+    published = models.BooleanField(
+        help_text='Should this memorial be shown publicly?',
     )
 
     def save(self, *args, **kw):

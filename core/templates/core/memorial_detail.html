@@ -89,28 +89,30 @@
 
     <div class="col-sm-3">
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Location</h3>
-            </div>
-            <div class="panel-body">
-                {{ memorial.location.name }}
-            </div>
-        </div>
+      {% if not memorial.published %}
+      <div class="alert alert-warning" role="alert">
+        This memorial is not marked as published.
+      </div>
+      {% endif %}
 
-        {% if memorial.cwgc %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">CWGC</h3>
-            </div>
-            <div class="panel-body">
-                <p>This grave is registered with the Commonwealth War Graves Commission.</p>
-                <p><a href="https://www.cwgc.org/find-war-dead/casualty/{{ memorial.cwgc }}">See the record on the CWGC website</a>.</p>
-            </div>
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Location</h3>
+          <p class="lead card-text">{{ memorial.location.name }}</p>
         </div>
-        {% endif %}
+      </div>
 
-    </div>
+      {% if memorial.cwgc %}
+      <div class="card mt-3">
+        <div class="card-body">
+          <h3 class="card-title">CWGC</h3>
+          <p class="card-text">This grave is registered with the Commonwealth War Graves Commission.</p>
+          <a class="card-link" href="https://www.cwgc.org/find-war-dead/casualty/{{ memorial.cwgc }}">See the record on the CWGC website</a>
+        </div>
+      </div>
+      {% endif %}
+
+  </div>
 
 </div>
 

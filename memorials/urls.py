@@ -28,7 +28,7 @@ class MemorialsSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Memorial.objects.filter(complete=True)
+        return Memorial.objects.filter(published=True)
 
     @classmethod
     def lastmod(cls, obj):
@@ -40,7 +40,7 @@ class TagsSitemap(Sitemap):
     priority = 0.6
 
     def items(self):
-        return Tag.objects.filter()
+        return Tag.objects.all()
 
 
 class LocationsSitemap(Sitemap):

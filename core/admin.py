@@ -28,7 +28,11 @@ class MemorialImageInline(admin.StackedInline):
 
 class MemorialAdmin(MarkdownxModelAdmin):
 
-    list_display = ('pretty_name', 'names_on_memorial', 'location', 'complete')
+    list_display = ('slug', 'pretty_name', 'names_on_memorial', 'location', 'complete', 'published')
+
+    readonly_fields = ('slug',)
+
+    search_fields = ('slug', 'names_on_memorial', 'name')
 
     inlines = [
         NameInline, MemorialImageInline
