@@ -14,78 +14,84 @@
 
   <div class="row">
 
-  <div class="col-sm-9">
+    <div class="col-sm-9">
 
-  {% if memorial.notes %}
+    {% if memorial.notes %}
 
-      {{ memorial.notes }}
+        {{ memorial.notes }}
 
-  {% endif %}
+    {% endif %}
 
-  {% if memorial.inscription %}
+    {% if memorial.inscription %}
 
-      <h2>Inscription</h2>
+        <h2>Inscription</h2>
 
-      {{ memorial.formatted_inscription|safe }}
+        {{ memorial.formatted_inscription|safe }}
 
-  {% endif %}
+    {% endif %}
 
-  {% if memorial.names.all %}
+    {% if memorial.names.all %}
 
-      <h2>Names on this Memorial</h2>
+        <h2>Names on this Memorial</h2>
 
-      <table class="table table-striped table-condensed">
-          <tr>
-              <th>
-                  Name
-              </th>
-              <th>
-                  Born
-              </th>
-              <th>
-                  Died
-              </th>
-          </tr>
+        <table class="table table-striped table-condensed">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Born
+                </th>
+                <th>
+                    Died
+                </th>
+            </tr>
 
-          {% for name in memorial.names.all %}
+            {% for name in memorial.names.all %}
 
-          <tr>
-              <td>
-                  {% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b>
-              </td>
-              <td>
-                  {{ name.date_of_birth }}
-              </td>
-              <td>
-                  {{ name.date_of_death }}
-              </td>
-          </tr>
+            <tr>
+                <td>
+                    {% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b>
+                </td>
+                <td>
+                    {{ name.date_of_birth }}
+                </td>
+                <td>
+                    {{ name.date_of_death }}
+                </td>
+            </tr>
 
-          {% endfor %}
+            {% endfor %}
 
-      </table>
+        </table>
 
-  {% endif %}
+      {% endif %}
 
-  <h2>Images</h2>
+      <h2>Images</h2>
 
-  {% for image in memorial.images.all %}
+      <div class="row">
 
-  <div class="col-xs-6 col-md-3">
-      <a href="{{ image.image.url }}" class="thumbnail">
-          {% thumbnail image.image "120x120" as im %}
-          <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ image }}" class="img-thumbnail">
-          {% endthumbnail %}
-      </a>
-  </div>
+      {% for image in memorial.images.all %}
 
-  {% empty %}
+        <div class="col-lg-3 col-md-4 col-6">
+          <a href="{{ image.image.url }}" class="d-block mb-4 h-100">
+            {% thumbnail image.image "250x250" as im %}
+              <img class="img-fluid img-thumbnail" src="{{ im.url }}" alt="{{ image }}">
+            {% endthumbnail %}
+          </a>
+        </div>
 
-  <p>We do not have any images of this memorial.</p>
+      {% empty %}
 
-  {% endfor %}
+        <div class="col">
+          <p>We do not have any images of this memorial.</p>
+        </div>
 
-  </div>
+      {% endfor %}
+
+      </div>
+
+    </div>
 
     <div class="col-sm-3">
 
@@ -111,6 +117,8 @@
         </div>
       </div>
       {% endif %}
+
+    </div>
 
   </div>
 
