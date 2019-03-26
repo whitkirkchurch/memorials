@@ -8,6 +8,9 @@ urlpatterns = [
     path('locations', views.LocationListView.as_view(), name='locations'),
     path('locations/<slug>', views.LocationView.as_view(), name='location'),
 
+    path('collections', views.TagListView.as_view(), name='tags'),
+    path('collections/<slug>', views.TagView.as_view(), name='tag'),
+
     path('memorials', views.MemorialListView.as_view(), name='memorials'),
     path('memorials/<slug>', views.MemorialView.as_view(), name='memorial'),
 

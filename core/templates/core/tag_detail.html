@@ -1,22 +1,25 @@
 {% extends 'layout.html' %}
 {% load static %}
 
-{% block title %}{{ location.name }}{% endblock %}
+{% block title %}{{ tag.name }}{% endblock %}
 
 {% block content %}
 
 <div class="container">
 
   <div class="pb-2 mt-4 mb-2 border-bottom">
-    <h1>{{ location.name }}</h1>
+    <h1>{{ tag.name }}</h1>
   </div>
 
-  {{ location.formatted_description|safe }}
+  {{ tag.formatted_description|safe }}
 
   <table class="table table-striped table-sm">
     <tr>
       <th>
         Name
+      </th>
+      <th>
+        Location
       </th>
     </tr>
 
@@ -25,6 +28,9 @@
     <tr>
       <td>
         <a href="{% url 'memorial' memorial.slug %}">{{ memorial.pretty_name }}</a>
+      </td>
+      <td>
+        {{ memorial.location }}
       </td>
     </tr>
 

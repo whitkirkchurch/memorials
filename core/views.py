@@ -38,6 +38,30 @@ class LocationView(DetailView):
         return context
 
 
+class TagListView(ListView):
+
+    model = models.Tag
+    context_object_name = 'tags'
+
+
+class TagView(DetailView):
+
+    model = models.Tag
+    context_object_name = 'tag'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        memorials = context['tag'].memorials.all()
+
+        context['paginator'] = Paginator(memorials, 20)
+
+        page = self.request.GET.get('page')
+        context['memorials'] = context['paginator'].get_page(page)
+
+        return context
+
+
 class MemorialListView(ListView):
 
     model = models.Memorial

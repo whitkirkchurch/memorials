@@ -15,9 +15,9 @@
 
   <h2><a href="{% url 'location' location.slug %}">{{ location.name }}</a></h2>
 
-    {{ location.description|safe }}
+    <p class="lead">{{ location.memorials.all|length }} monument{{ location.memorials.all|length|pluralize }}</p>
 
-    <p>{{ location.memorials.all|length }} monument{{ location.memorials.all|length|pluralize }}.</p>
+    {{ location.formatted_description|safe }}
 
   {% endfor %}
 

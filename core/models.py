@@ -25,6 +25,27 @@ class Location(models.Model):
     description = MarkdownxField()
     slug = AutoSlugField(populate_from='name', unique=True, editable=True)
 
+    @property
+    def formatted_description(self):
+        return markdownify(self.description)
+
+    def __str__(self):
+        return self.name
+
+
+class Tag(models.Model):
+
+    class Meta:
+        ordering = ['name']
+
+    name = models.CharField(max_length=1024)
+    description = MarkdownxField()
+    slug = AutoSlugField(populate_from='name', unique=True, editable=True)
+
+    @property
+    def formatted_description(self):
+        return markdownify(self.description)
+
     def __str__(self):
         return self.name
 
@@ -67,6 +88,11 @@ class Memorial(models.Model):
     location = models.ForeignKey(
         'Location',
         on_delete=models.PROTECT,
+        related_name='memorials'
+    )
+
+    tags = models.ManyToManyField(
+        'Tag',
         related_name='memorials'
     )
 

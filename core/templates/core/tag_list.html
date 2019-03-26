@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Collections{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="pb-2 mt-4 mb-2 border-bottom">
+    <h1>Collections</h1>
+  </div>
+
+  {% for tag in tags %}
+
+  <h2><a href="{% url 'tag' tag.slug %}">{{ tag.name }}</a></h2>
+
+    <p class="lead">{{ tag.memorials.all|length }} monument{{ tag.memorials.all|length|pluralize }}</p>
+
+    {{ tag.formatted_description|safe }}
+
+  {% endfor %}
+
+</div>
+
+{% endblock %}

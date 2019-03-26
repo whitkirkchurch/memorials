@@ -11,6 +11,13 @@ class LocationAdmin(MarkdownxModelAdmin):
 admin.site.register(models.Location, LocationAdmin)
 
 
+class TagAdmin(MarkdownxModelAdmin):
+    list_display = ('name', 'slug')
+
+
+admin.site.register(models.Tag, TagAdmin)
+
+
 class NameInline(admin.TabularInline):
     model = models.Name
 
