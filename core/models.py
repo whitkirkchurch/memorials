@@ -32,6 +32,9 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('location', kwargs={'slug': self.slug})
+
 
 class Tag(models.Model):
 
@@ -48,6 +51,9 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('tag', kwargs={'slug': self.slug})
 
 
 class Memorial(models.Model):
@@ -158,7 +164,7 @@ class Memorial(models.Model):
             return None
 
     def get_absolute_url(self):
-        return reverse('memorial', kwargs={'slug':self.slug})
+        return reverse('memorial', kwargs={'slug': self.slug})
 
 
 class Name(models.Model):

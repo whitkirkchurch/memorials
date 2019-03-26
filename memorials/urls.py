@@ -18,7 +18,7 @@ from django.urls import include, path
 
 from django.contrib.sitemaps.views import sitemap
 
-from core.models import Memorial
+from core.models import Memorial, Tag, Location
 
 from django.contrib.sitemaps import Sitemap
 
@@ -35,8 +35,26 @@ class MemorialsSitemap(Sitemap):
         return obj.updated_at
 
 
+class TagsSitemap(Sitemap):
+    changefreq = "yearly"
+    priority = 0.6
+
+    def items(self):
+        return Tag.objects.filter()
+
+
+class LocationsSitemap(Sitemap):
+    changefreq = "yearly"
+    priority = 0.7
+
+    def items(self):
+        return Location.objects.all()
+
+
 sitemaps = {
-    'memorials': MemorialsSitemap
+    'memorials': MemorialsSitemap,
+    'tags': TagsSitemap,
+    'locations': LocationsSitemap
 }
 
 urlpatterns = [
