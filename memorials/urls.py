@@ -24,8 +24,8 @@ from django.contrib.sitemaps import Sitemap
 
 
 class MemorialsSitemap(Sitemap):
-    changefreq = "yearly"
-    priority = 0.5
+    changefreq = 'yearly'
+    protocol = 'https'
 
     def items(self):
         return Memorial.objects.filter(published=True)
@@ -36,16 +36,16 @@ class MemorialsSitemap(Sitemap):
 
 
 class TagsSitemap(Sitemap):
-    changefreq = "yearly"
-    priority = 0.6
+    changefreq = 'yearly'
+    protocol = 'https'
 
     def items(self):
         return Tag.objects.all()
 
 
 class LocationsSitemap(Sitemap):
-    changefreq = "yearly"
-    priority = 0.7
+    changefreq = 'yearly'
+    protocol = 'https'
 
     def items(self):
         return Location.objects.all()
