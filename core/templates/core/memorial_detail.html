@@ -5,6 +5,7 @@
 {% block title %}{{ memorial.pretty_name }}{% endblock %}
 
 {% block head_meta %}
+{% if not memorial.published %}<meta name="robots" content="noindex">{% endif %}
 <link rel="alternate" href="{{ memorial.get_json_url }}" type="application/json">
 {% endblock %}
 
@@ -113,7 +114,7 @@
       </div>
 
       {% if memorial.cwgc %}
-      <div class="card mt-3">
+      <div class="card mt-2">
         <div class="card-body">
           <h3 class="card-title">CWGC</h3>
           <p class="card-text">This grave is registered with the Commonwealth War Graves Commission.</p>
@@ -121,6 +122,14 @@
         </div>
       </div>
       {% endif %}
+
+      <div class="card mt-2"><small>
+        <div class="card-body">
+          <p class="card-text">Memorial ID <code>{{ memorial.slug }}</code>.</p>
+          <p class="card-text">Last updated {{ memorial.updated_at|date:"j F Y" }}.</p>
+        </div>
+        <div class="card-footer"><a href="mailto:memorials@whitkirkchurch.org.uk">Report a problem with this record</a></div>
+      </small></div>
 
     </div>
 

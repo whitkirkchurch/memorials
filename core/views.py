@@ -17,6 +17,11 @@ class index(TemplateView):
     template_name = 'index.html'
 
 
+class about(TemplateView):
+
+    template_name = 'about.html'
+
+
 class LocationListView(ListView):
 
     model = models.Location
