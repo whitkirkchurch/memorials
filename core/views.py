@@ -116,10 +116,7 @@ class MemorialHtmlView(DetailView):
 
     def dispatch(self, *args, **kwargs):
         response = super(MemorialHtmlView, self).dispatch(*args, **kwargs)
-        response['Link'] = [
-            '<' + self.object.get_absolute_url() + '>; rel="canonical"',
-            '<' + self.object.get_json_url() + '>; rel="alternate"; type="application/json"',
-        ]
+        response['Link'] = '<' + self.object.get_absolute_url() + '>; rel="canonical", <' + self.object.get_json_url() + '>; rel="alternate"; type="application/json"'
 
         return response
 
@@ -154,10 +151,7 @@ class MemorialJsonView(DetailView):
 
         response = JsonResponse(data)
 
-        response['Link'] = [
-            '<' + self.object.get_absolute_url() + '>; rel="canonical"',
-            '<' + self.object.get_html_url() + '>; rel="alternate"; type="text/html"',
-        ]
+        response['Link'] = '<' + self.object.get_absolute_url() + '>; rel="canonical", <' + self.object.get_html_url() + '>; rel="alternate"; type="text/html"'
 
         return response
 
