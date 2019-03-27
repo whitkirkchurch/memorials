@@ -96,7 +96,6 @@ class MemorialView(DetailView):
     model = models.Memorial
     context_object_name = 'memorial'
 
-    """A base view for displaying a single object."""
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         data = self.get_context_data(object=self.object)
