@@ -106,7 +106,22 @@ class MemorialView(DetailView):
         data = self.get_context_data(object=self.object)
         if request.META['HTTP_ACCEPT'] == 'application/json':
             return HttpResponseRedirect(reverse('memorial-json', kwargs={'slug': self.object.slug}))
-        return self.render_to_response(data)
+        return HttpResponseRedirect(reverse('memorial-html', kwargs={'slug': self.object.slug}))
+
+
+class MemorialHtmlView(DetailView):
+
+    model = models.Memorial
+    context_object_name = 'memorial'
+
+    def dispatch(self, *args, **kwargs):
+        response = super(MemorialHtmlView, self).dispatch(*args, **kwargs)
+        response['Link'] = [
+            '<' + self.object.get_absolute_url() + '>; rel="canonical"',
+            '<' + self.object.get_json_url() + '>; rel="alternate"; type="application/json"',
+        ]
+
+        return response
 
 
 class MemorialJsonView(DetailView):
@@ -116,9 +131,12 @@ class MemorialJsonView(DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+
+        absolute_url = request.build_absolute_uri(self.object.get_absolute_url())
+
         data = {
             'id': self.object.slug,
-            'url': request.build_absolute_uri(self.object.get_absolute_url()),
+            'url': absolute_url,
             'name': self.object.pretty_name,
             'created': self.object.created_at,
             'updated': self.object.updated_at,
@@ -134,7 +152,14 @@ class MemorialJsonView(DetailView):
                 'date_of_death': name.date_of_death
             })
 
-        return JsonResponse(data)
+        response = JsonResponse(data)
+
+        response['Link'] = [
+            '<' + self.object.get_absolute_url() + '>; rel="canonical"',
+            '<' + self.object.get_html_url() + '>; rel="alternate"; type="text/html"',
+        ]
+
+        return response
 
 
 class NameListView(ListView):
