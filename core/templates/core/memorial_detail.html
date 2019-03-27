@@ -39,16 +39,16 @@
 
         <h2>Names on this Memorial</h2>
 
-        <table class="table table-striped table-condensed">
+        <table class="table table-striped table-sm">
             <tr>
                 <th>
                     Name
                 </th>
                 <th>
-                    Born
+                    Date of Birth
                 </th>
                 <th>
-                    Died
+                    Date of Death
                 </th>
             </tr>
 
@@ -59,10 +59,10 @@
                     {% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b>
                 </td>
                 <td>
-                    {{ name.date_of_birth }}
+                    {{ name.date_of_birth|default:"Unknown" }}
                 </td>
                 <td>
-                    {{ name.date_of_death }}
+                    {{ name.date_of_death|default:"Unknown" }}
                 </td>
             </tr>
 
