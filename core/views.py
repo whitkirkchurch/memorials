@@ -4,6 +4,9 @@ from django.views.generic import TemplateView, ListView, DetailView
 
 from django.core.paginator import Paginator
 
+from django.http import HttpResponseRedirect, JsonResponse
+from django.urls import reverse
+
 from . import models
 
 # Create your views here.
@@ -92,6 +95,42 @@ class MemorialView(DetailView):
 
     model = models.Memorial
     context_object_name = 'memorial'
+
+    """A base view for displaying a single object."""
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        data = self.get_context_data(object=self.object)
+        if request.META['HTTP_ACCEPT'] == 'application/json':
+            return HttpResponseRedirect(reverse('memorial-json', kwargs={'slug': self.object.slug}))
+        return self.render_to_response(data)
+
+
+class MemorialJsonView(DetailView):
+
+    model = models.Memorial
+    context_object_name = 'memorial'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        data = {
+            'id': self.object.slug,
+            'url': request.build_absolute_uri(self.object.get_absolute_url()),
+            'name': self.object.pretty_name,
+            'created': self.object.created_at,
+            'updated': self.object.updated_at,
+            'names': []
+        }
+
+        for name in self.object.names.all():
+            data['names'].append({
+                'name': name.__str__(),
+                'family_name': name.family_name,
+                'given_names': name.given_names,
+                'date_of_birth': name.date_of_birth,
+                'date_of_death': name.date_of_death
+            })
+
+        return JsonResponse(data)
 
 
 class NameListView(ListView):

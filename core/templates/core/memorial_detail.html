@@ -4,6 +4,10 @@
 
 {% block title %}{{ memorial.pretty_name }}{% endblock %}
 
+{% block head_meta %}
+<link rel="alternate" href="{{ memorial.get_json_url }}" type="application/json">
+{% endblock %}
+
 {% block content %}
 
 <div class="container">

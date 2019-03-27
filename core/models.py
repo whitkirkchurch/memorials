@@ -182,6 +182,9 @@ class Memorial(models.Model):
     def get_absolute_url(self):
         return reverse('memorial', kwargs={'slug': self.slug})
 
+    def get_json_url(self):
+        return reverse('memorial-json', kwargs={'slug': self.slug})
+
 
 class Name(models.Model):
 

@@ -12,6 +12,7 @@ urlpatterns = [
     path('collections/<slug>', views.TagView.as_view(), name='tag'),
 
     path('memorials', views.MemorialListView.as_view(), name='memorials'),
+    path('memorials/<slug>.json', views.MemorialJsonView.as_view(), name='memorial-json'),
     path('memorials/<slug>', views.MemorialView.as_view(), name='memorial'),
 
     path('names', views.NameListView.as_view(), name='names')
