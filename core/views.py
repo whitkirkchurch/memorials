@@ -106,16 +106,10 @@ class MemorialView(DetailView):
         data = self.get_context_data(object=self.object)
         if request.META['HTTP_ACCEPT'] == 'application/json':
             return HttpResponseRedirect(reverse('memorial-json', kwargs={'slug': self.object.slug}))
-        return HttpResponseRedirect(reverse('memorial-html', kwargs={'slug': self.object.slug}))
-
-
-class MemorialHtmlView(DetailView):
-
-    model = models.Memorial
-    context_object_name = 'memorial'
+        return self.render_to_response(data)
 
     def dispatch(self, *args, **kwargs):
-        response = super(MemorialHtmlView, self).dispatch(*args, **kwargs)
+        response = super(MemorialView, self).dispatch(*args, **kwargs)
         response['Link'] = '<' + self.object.get_absolute_url() + '>; rel="canonical", <' + self.object.get_json_url() + '>; rel="alternate"; type="application/json"'
 
         return response
@@ -151,7 +145,7 @@ class MemorialJsonView(DetailView):
 
         response = JsonResponse(data)
 
-        response['Link'] = '<' + self.object.get_absolute_url() + '>; rel="canonical", <' + self.object.get_html_url() + '>; rel="alternate"; type="text/html"'
+        response['Link'] = '<' + self.object.get_absolute_url() + '>; rel="canonical", <' + self.object.get_absolute_url() + '>; rel="alternate"; type="text/html"'
 
         return response
 

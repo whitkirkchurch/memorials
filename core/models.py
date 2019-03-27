@@ -185,9 +185,6 @@ class Memorial(models.Model):
     def get_json_url(self):
         return reverse('memorial-json', kwargs={'slug': self.slug})
 
-    def get_html_url(self):
-        return reverse('memorial-html', kwargs={'slug': self.slug})
-
 
 class Name(models.Model):
 
