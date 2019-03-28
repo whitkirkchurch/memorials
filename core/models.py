@@ -102,10 +102,20 @@ class Memorial(models.Model):
     def formatted_inscription(self):
         return markdownify(self.inscription)
 
+    @property
+    def formatted_description(self):
+        return markdownify(self.description)
+
     location = models.ForeignKey(
         'Location',
         on_delete=models.PROTECT,
         related_name='memorials'
+    )
+
+    location_detail = models.CharField(
+        max_length=1024,
+        blank=True,
+        help_text='Additional information about this memorial\'s location, such as a plot number.'
     )
 
     tags = models.ManyToManyField(

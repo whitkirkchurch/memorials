@@ -17,21 +17,25 @@
     <h1>{{ memorial.pretty_name }}</h1>
   </div>
 
+  {% if memorial.description %}
+
+      {{ memorial.formatted_description|safe }}
+
+      <hr>
+
+  {% endif %}
+
   <div class="row">
 
     <div class="col-sm-9">
-
-    {% if memorial.notes %}
-
-        {{ memorial.notes }}
-
-    {% endif %}
 
     {% if memorial.inscription %}
 
         <h2>Inscription</h2>
 
         {{ memorial.formatted_inscription|safe }}
+
+        <hr>
 
     {% endif %}
 
@@ -69,6 +73,8 @@
             {% endfor %}
 
         </table>
+
+        <hr>
 
       {% endif %}
 
@@ -110,6 +116,9 @@
         <div class="card-body">
           <h3 class="card-title">Location</h3>
           <p class="lead card-text">{{ memorial.location.name }}</p>
+          {% if memorial.location_detail %}
+          <p class="card-text">{{ memorial.location_detail }}</p>
+          {% endif %}
         </div>
       </div>
 
