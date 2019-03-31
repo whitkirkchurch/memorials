@@ -64,9 +64,11 @@ admin.site.register(models.Memorial, MemorialAdmin)
 
 
 class NameAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'date_of_birth', 'date_of_death')
+    list_display = ('__str__', 'slug', 'date_of_birth', 'date_of_death')
 
-    search_fields = ('given_names', 'family_name')
+    search_fields = ('given_names', 'family_name', 'slug')
+
+    readonly_fields = ('slug',)
 
 
 admin.site.register(models.Name, NameAdmin)

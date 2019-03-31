@@ -207,6 +207,14 @@ class Name(models.Model):
     class Meta:
         ordering = ['family_name', 'given_names']
 
+    slug = RandomSlugField(
+        length=6,
+        exclude_upper=True,
+        exclude_digits=True,
+        exclude_vowels=True,
+        help_text='A randomly generated set of letters used to uniquely identify this person.'
+    )
+
     honorific = models.CharField(max_length=256, blank=True)
     given_names = models.CharField(max_length=1024)
     family_name = models.CharField(max_length=1024)
