@@ -48,7 +48,7 @@ class MemorialAdmin(MarkdownxModelAdmin):
 
     list_filter = ('location', 'complete', 'published', 'tags')
 
-    search_fields = ('slug', 'names_on_memorial', 'names')
+    search_fields = ('slug', 'pretty_name')
 
     exclude = ('names',)
 
