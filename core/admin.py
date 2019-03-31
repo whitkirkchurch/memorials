@@ -18,8 +18,8 @@ class TagAdmin(MarkdownxModelAdmin):
 admin.site.register(models.Tag, TagAdmin)
 
 
-class NameInline(admin.TabularInline):
-    model = models.Name
+class NameMemorialInline(admin.TabularInline):
+    model = models.Memorial.names.through
 
 
 class MemorialImageInline(admin.StackedInline):
@@ -48,10 +48,13 @@ class MemorialAdmin(MarkdownxModelAdmin):
 
     list_filter = ('location', 'complete', 'published', 'tags')
 
-    search_fields = ('slug', 'names_on_memorial', 'name')
+    search_fields = ('slug', 'names_on_memorial', 'names')
+
+    exclude = ('names',)
 
     inlines = [
-        NameInline, MemorialImageInline
+        NameMemorialInline,
+        MemorialImageInline
     ]
 
     actions = [mark_published, mark_unpublished]

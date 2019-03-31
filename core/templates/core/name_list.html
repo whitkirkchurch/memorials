@@ -28,7 +28,14 @@
 
   <tr>
     <td>
-        <a href="{% url 'memorial' name.memorial.slug %}">{% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b></a>
+        {% if name.memorials.all|length == 0 %}
+            {% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b>
+        {% elif name.memorials.all|length == 1 %}
+            <a href="{% url 'memorial' name.memorials.all.first.slug %}">{% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b></a>
+        {% else %}
+            {% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b><br>
+            <small>(Multiple Memorials)</small>
+        {% endif %}
     </td>
     <td>
         {{ name.date_of_birth|default:"Unknown" }}

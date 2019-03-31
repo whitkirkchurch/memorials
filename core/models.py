@@ -118,6 +118,11 @@ class Memorial(models.Model):
         help_text='Additional information about this memorial\'s location, such as a plot number.'
     )
 
+    names = models.ManyToManyField(
+        'Name',
+        related_name='memorials'
+    )
+
     tags = models.ManyToManyField(
         'Tag',
         related_name='memorials',
@@ -154,6 +159,7 @@ class Memorial(models.Model):
     )
 
     def save(self, *args, **kw):
+        super(Memorial, self).save(*args, **kw)
         self.pretty_name = self.generate_pretty_name()
         super(Memorial, self).save(*args, **kw)
 
@@ -212,12 +218,6 @@ class Name(models.Model):
     date_of_death = models.DateField(
         blank=True,
         null=True
-    )
-
-    memorial = models.ForeignKey(
-        'Memorial',
-        on_delete=models.CASCADE,
-        related_name='names'
     )
 
     def __str__(self):
