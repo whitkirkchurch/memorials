@@ -1,21 +1,32 @@
 from django.contrib import admin
+
+from django.contrib.admin import AdminSite
+
 from markdownx.admin import MarkdownxModelAdmin
 
 from . import models
+
+
+class MemorialsAdminSite(AdminSite):
+    site_header = 'Memorials administration'
+    site_title = 'Memorials administration'
+
+
+memorialsadmin = MemorialsAdminSite(name='memorialsadmin')
 
 
 class LocationAdmin(MarkdownxModelAdmin):
     list_display = ('name',)
 
 
-admin.site.register(models.Location, LocationAdmin)
+memorialsadmin.register(models.Location, LocationAdmin)
 
 
 class TagAdmin(MarkdownxModelAdmin):
     list_display = ('name', 'slug')
 
 
-admin.site.register(models.Tag, TagAdmin)
+memorialsadmin.register(models.Tag, TagAdmin)
 
 
 class NameMemorialInline(admin.TabularInline):
@@ -60,7 +71,7 @@ class MemorialAdmin(MarkdownxModelAdmin):
     actions = [mark_published, mark_unpublished]
 
 
-admin.site.register(models.Memorial, MemorialAdmin)
+memorialsadmin.register(models.Memorial, MemorialAdmin)
 
 
 class NameAdmin(admin.ModelAdmin):
@@ -71,7 +82,7 @@ class NameAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
 
 
-admin.site.register(models.Name, NameAdmin)
+memorialsadmin.register(models.Name, NameAdmin)
 
 
-admin.site.register(models.MemorialImage)
+memorialsadmin.register(models.MemorialImage)
