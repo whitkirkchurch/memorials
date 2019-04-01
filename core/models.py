@@ -137,13 +137,6 @@ class Memorial(models.Model):
         null=True
     )
 
-    cwgc = models.CharField(
-        verbose_name='CWGC Casualty',
-        max_length=128,
-        help_text='If known, the entry number of this casualty with the Commonwealth War Graves Commission.',
-        blank=True
-    )
-
     complete = models.BooleanField(
         help_text='Should this memorial\'s record be considered complete?',
     )
@@ -216,9 +209,31 @@ class Name(models.Model):
         blank=True,
         null=True
     )
+
     date_of_death = models.DateField(
         blank=True,
         null=True
+    )
+
+    cwgc = models.CharField(
+        verbose_name='CWGC Casualty',
+        max_length=128,
+        help_text='The Commonwealth War Graves Commission casualty number for this person.',
+        blank=True
+    )
+
+    service_number = models.CharField(
+        verbose_name='Service Number',
+        max_length=128,
+        help_text='This person\'s service number.',
+        blank=True
+    )
+
+    wikidata = models.CharField(
+        verbose_name='Wikidata ID',
+        max_length=128,
+        help_text='This person\'s Wikidata ID.',
+        blank=True
     )
 
     def __str__(self):
