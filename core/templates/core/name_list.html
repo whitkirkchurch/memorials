@@ -37,7 +37,7 @@
             {% elif name.memorials.all|length == 1 %}
                 <a href="{% url 'memorial' name.memorials.all.first.slug %}">{% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b></a>
             {% else %}
-                {% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b><br>
+                <a href="{% url 'name' name.slug %}">{% if name.honorific %}{{ name.honorific }} {% endif %}<b>{{ name }}</b></a><br>
                 <small>(Multiple Memorials)</small>
             {% endif %}
         </td>

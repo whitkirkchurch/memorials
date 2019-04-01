@@ -153,3 +153,46 @@ class NameListView(ListView):
     model = models.Name
     paginate_by = 20
     context_object_name = 'names'
+
+
+class NameView(DetailView):
+
+    model = models.Name
+    context_object_name = 'name'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        data = self.get_context_data(object=self.object)
+        if request.META['HTTP_ACCEPT'] == 'application/json':
+            return HttpResponseRedirect(reverse('name-json', kwargs={'slug': self.object.slug}))
+        return self.render_to_response(data)
+
+    def dispatch(self, *args, **kwargs):
+        response = super(NameView, self).dispatch(*args, **kwargs)
+        response['Link'] = '<' + self.object.get_absolute_url() + '>; rel="canonical", <' + self.object.get_json_url() + '>; rel="alternate"; type="application/json"'
+
+        return response
+
+
+class NameJsonView(DetailView):
+
+    model = models.Name
+    context_object_name = 'name'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        absolute_url = request.build_absolute_uri(self.object.get_absolute_url())
+
+        data = {
+            'id': self.object.slug,
+            'url': absolute_url,
+            'created': self.object.created_at,
+            'updated': self.object.updated_at
+        }
+
+        response = JsonResponse(data)
+
+        response['Link'] = '<' + self.object.get_absolute_url() + '>; rel="canonical", <' + self.object.get_absolute_url() + '>; rel="alternate"; type="text/html"'
+
+        return response

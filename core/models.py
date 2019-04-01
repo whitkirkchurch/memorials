@@ -242,6 +242,12 @@ class Name(models.Model):
     def __str__(self):
         return '{} {}'.format(self.given_names, self.family_name)
 
+    def get_absolute_url(self):
+        return reverse('name', kwargs={'slug': self.slug})
+
+    def get_json_url(self):
+        return reverse('name-json', kwargs={'slug': self.slug})
+
 
 class MemorialImage(models.Model):
 

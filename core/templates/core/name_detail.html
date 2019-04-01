@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %}{{ name.given_names }} {{ name.family_name }}{% endblock %}
+
+{% block head_meta %}
+<link rel="alternate" href="{{ name.get_json_url }}" type="application/json">
+{% endblock %}
+
+{% block content %}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Person",
+  "name": "{{ name.given_names }} {{ name.family_name }}"
+}
+</script>
+
+<div class="container">
+
+  <div class="pb-2 mt-4 mb-2 border-bottom">
+    <h1 class="display-4">{% if name.honorific %}{{ name.honorific }} {% endif %}{{ name.given_names }} {{ name.family_name }}</h1>
+
+    {% if name.date_of_birth %}
+      <p class="lead">Born {{ name.date_of_birth|date:"l j F Y" }}</p>
+    {% endif %}
+
+    {% if name.date_of_death %}
+      <p class="lead">Died {{ name.date_of_death|date:"l j F Y" }}</p>
+    {% endif %}
+
+    {% if name.service_number %}
+      <p class="lead">Service Number {{ name.service_number }}</p>
+    {% endif %}
+  </div>
+
+  <div class="row">
+
+    <div class="col-sm-9">
+
+      <h2>Memorials</h2>
+
+      {% for memorial in name.memorials.all %}
+
+        <h4><a href="{% url 'memorial' memorial.slug %}">{{ memorial.pretty_name }}</a></h4>
+        <p>{{ memorial.location }}{% if memorial.location_detail %} &middot; {{ memorial.location_detail }}</p>{% endif %}
+
+      {% endfor %}
+
+    </div>
+
+    <div class="col-sm-3">
+
+      {% if name.cwgc %}
+        <div class="card mt-2">
+          <div class="card-body">
+            <h4 class="card-title">War Graves Commission</h4>
+            <p class="card-text">This person has a memorial which is registered with the Commonwealth War Graves Commission.</p>
+            <a class="card-link" href="https://www.cwgc.org/find-war-dead/casualty/{{ name.cwgc }}">See the record</a>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if name.wikidata %}
+        <div class="card mt-2">
+          <div class="card-body">
+            <h4 class="card-title">Wikidata</h4>
+            <p class="card-text">This person has an entry on Wikidata.</p>
+            <a class="card-link" href="http://www.wikidata.org/entity/{{ name.wikidata }}">See the record</a>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="card mt-2"><small>
+        <div class="card-body">
+          <p class="card-text">Name ID <code>{{ name.slug }}</code>.</p>
+          <p class="card-text">Last updated {{ name.updated_at|date:"j F Y" }}.</p>
+        </div>
+        <div class="card-footer"><a href="mailto:memorials@whitkirkchurch.org.uk">Report a problem with this record</a></div>
+      </small></div>
+
+    </div>
+
+  </div>
+
+{% endblock %}
