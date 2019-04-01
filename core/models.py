@@ -4,12 +4,6 @@ from sorl.thumbnail import ImageField
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 
-import string
-import random
-
-from django.db.utils import IntegrityError
-from django.db import transaction
-
 from django.urls import reverse
 
 from randomslugfield import RandomSlugField
