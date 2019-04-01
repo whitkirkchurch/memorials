@@ -153,7 +153,6 @@ class Memorial(models.Model):
     )
 
     def save(self, *args, **kw):
-        super(Memorial, self).save(*args, **kw)
         self.pretty_name = self.generate_pretty_name()
         super(Memorial, self).save(*args, **kw)
 
