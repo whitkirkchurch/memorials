@@ -193,6 +193,9 @@ class Name(models.Model):
     class Meta:
         ordering = ['family_name', 'given_names']
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     slug = RandomSlugField(
         length=6,
         exclude_upper=True,
