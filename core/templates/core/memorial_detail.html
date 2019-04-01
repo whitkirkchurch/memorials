@@ -131,13 +131,22 @@
         </div>
       </div>
 
-      <div class="card mt-2"><small>
+      <div class="card mt-2">
         <div class="card-body">
-          <p class="card-text">Memorial ID <code>{{ memorial.slug }}</code>.</p>
-          <p class="card-text">Last updated {{ memorial.updated_at|date:"j F Y" }}.</p>
+          {% if user.is_authenticated %}
+            <p class="card-text"><a class="btn btn-sm btn-primary" href="{% url 'admin:core_memorial_change' memorial.id %}">Edit Memorial</a></p>
+          {% endif %}
+          <small>
+            <p class="card-text">Memorial ID <code>{{ memorial.slug }}</code>.</p>
+            <p class="card-text">Last updated {{ memorial.updated_at|date:"j F Y" }}.</p>
+          </small>
         </div>
-        <div class="card-footer"><a href="mailto:memorials@whitkirkchurch.org.uk">Report a problem with this record</a></div>
-      </small></div>
+        <div class="card-footer">
+          <small>
+            <a href="mailto:memorials@whitkirkchurch.org.uk">Report a problem with this record</a>
+          </small>
+        </div>
+      </div>
 
     </div>
 
