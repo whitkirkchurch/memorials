@@ -19,6 +19,11 @@ class Location(models.Model):
     description = MarkdownxField()
     slug = AutoSlugField(populate_from='name', unique=True, editable=True)
 
+    outline = models.TextField(
+        help_text='A GeoJSON description of this location\'s outline.',
+        blank=True
+    )
+
     @property
     def formatted_description(self):
         return markdownify(self.description)
@@ -136,6 +141,23 @@ class Memorial(models.Model):
         blank=True,
         null=True
     )
+
+    outline = models.TextField(
+        help_text='A GeoJSON description of this memorial\'s outline.',
+        blank=True
+    )
+
+    @property
+    def outlineGeoJSON(self):
+
+        return '''{
+          "type": "Feature",
+          "properties": {
+            "name": "''' + self.pretty_name + '''",
+        "locationReference": "123"
+          },
+          "geometry": ''' + self.outline + '''
+        }'''
 
     complete = models.BooleanField(
         help_text='Should this memorial\'s record be considered complete?',

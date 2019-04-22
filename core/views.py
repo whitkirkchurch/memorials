@@ -52,6 +52,20 @@ class LocationView(DetailView):
         return context
 
 
+class LocationMapView(DetailView):
+
+    model = models.Location
+    context_object_name = 'location'
+    template_name = 'core/location_map.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['memorials'] = context['location'].memorials.filter(published=True)
+
+        return context
+
+
 class TagListView(ListView):
 
     model = models.Tag

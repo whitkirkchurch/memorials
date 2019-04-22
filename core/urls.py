@@ -8,6 +8,7 @@ urlpatterns = [
     path('about', views.about.as_view(), name='about'),
 
     path('locations', views.LocationListView.as_view(), name='locations'),
+    path('locations/<slug>/map', views.LocationMapView.as_view(), name='locationmap'),
     path('locations/<slug>', views.LocationView.as_view(), name='location'),
 
     path('collections', views.TagListView.as_view(), name='tags'),

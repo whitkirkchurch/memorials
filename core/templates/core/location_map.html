@@ -1,0 +1,131 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}{{ location.name }}{% endblock %}
+
+{% block head_meta %}
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="pb-2 mt-4 mb-2 border-bottom">
+    <h1 class="display-4">{{ location.name }}</h1>
+  </div>
+
+  <div id='map' style='height: 600px;'></div>
+  <script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiamFja3NvbmowNCIsImEiOiJjanR5aDlwcTQwaHVwNGRwbjZveDV3bXQ0In0.CUUR84qSL_S9vixbdZun_A';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/jacksonj04/cjuh76fsv10by1fmo01htulh7'
+  });
+
+  map.on('load', function() {
+
+    locationGeoJSON = {{ location.outline|safe }};
+
+    memorialGeoJSON = {
+      "type": "FeatureCollection",
+      "features": [
+        {% for memorial in memorials %}
+        {{ memorial.outlineGeoJSON|safe }}
+        {% endfor %}
+      ]
+    };
+
+    map.addLayer({
+      "id": "location-layer",
+      "type": "fill",
+      "source": {
+        "type": "geojson",
+        "data": locationGeoJSON
+      },
+      'layout': {},
+      'paint': {
+        'fill-color': '#95c157',
+        'fill-opacity': 0.6,
+        'fill-outline-color': '#000'
+      }
+    });
+
+    map.addSource('memorials', {
+      "type": "geojson",
+      "data": memorialGeoJSON
+    });
+
+    map.addLayer({
+      "id": "memorials-layer",
+      "type": "fill",
+      "source": 'memorials',
+      'layout': {},
+      'paint': {
+        'fill-color': '#68594e',
+        'fill-opacity': 0.8,
+        'fill-outline-color': '#000'
+      }
+    });
+
+    map.addLayer({
+        'id': 'memorials-label',
+        'source': 'memorials',
+        'type': 'symbol',
+        "layout": {
+            "text-field": "{locationReference}",
+            "symbol-avoid-edges": true,
+            "text-max-angle": 30,
+            "text-size": 10
+          },
+          "paint": {
+            "text-color": 'white'
+          }
+    });
+
+    map.on('click', 'memorials-layer', function (e) {
+      new mapboxgl.Popup()
+      .setLngLat(e.lngLat)
+      .setHTML(e.features[0].properties.name)
+      .addTo(map);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the states layer.
+    map.on('mouseenter', 'memorials-layer', function () {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'memorials-layer', function () {
+      map.getCanvas().style.cursor = '';
+    });
+
+    var coordinates = locationGeoJSON.geometry.coordinates[0];
+    var bounds = coordinates.reduce(function (bounds, coord) {
+        return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+    map.fitBounds(bounds, {
+        padding: 20,
+        duration: 0
+    });
+
+  });
+
+  </script>
+
+
+  {% for memorial in memorials %}
+
+  <p>
+      <a href="{% url 'memorial' memorial.slug %}">{{ memorial.pretty_name }}</a>
+  </p>
+
+  {% endfor %}
+
+</div>
+
+{% endblock %}
