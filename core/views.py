@@ -101,7 +101,7 @@ class TagView(DetailView):
 class MemorialListView(ListView):
 
     model = models.Memorial
-    paginate_by = 20
+    paginate_by = 50
     context_object_name = 'memorials'
 
     def get_queryset(self):
@@ -165,7 +165,7 @@ class MemorialJsonView(DetailView):
 class NameListView(ListView):
 
     model = models.Name
-    paginate_by = 20
+    paginate_by = 50
     context_object_name = 'names'
 
 

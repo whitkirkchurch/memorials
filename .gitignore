@@ -2,7 +2,9 @@ venv
 *.pyc
 staticfiles
 .env
+.python-version
 db.sqlite3
+node_modules
 
 /memorials/media/
 /memorials/staticfiles/

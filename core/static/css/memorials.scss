@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Droid+Serif|Lato');
+
+@import "custom";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+body {
+  padding-top: 3.5rem;
+}
+
+.lead {
+  font-family: $font-family-sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+
+  body {
+    background: $gray-900;
+  }
+
+  .jumbotron {
+    background: $gray-700;
+  }
+
+  p, h1, h2 {
+    color: $gray-200;
+  }
+
+  a {
+    color: #86b7f0;
+  }
+
+  a:hover {
+    color: lighten(#86b7f0, 20%);
+  }
+
+}
