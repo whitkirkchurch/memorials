@@ -9,8 +9,10 @@
 {% if not memorial.published %}<meta name="robots" content="noindex">{% endif %}
 <link rel="alternate" href="{{ memorial.get_json_url }}" type="application/json">
 
+{% if memorial.outline %}
 <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'>
+{% endif %}
 
 {% endblock %}
 
@@ -133,52 +135,24 @@
           {% if memorial.location_detail %}
           <p class="card-text">{{ memorial.location_detail }}</p>
           {% endif %}
-          {% if memorial.latitude %}
-          <p class="card-text">{{ memorial.latitude }}</p>
-          {% endif %}
-          {% if memorial.longitude %}
-          <p class="card-text">{{ memorial.longitude }}</p>
-          {% endif %}
 
+          {% if memorial.outline %}
           <div id='map' style='height: 200px;'></div>
           <script>
           mapboxgl.accessToken = 'pk.eyJ1IjoiamFja3NvbmowNCIsImEiOiJxNmRPTDhvIn0.zxOHkhRVui-0MBwEdKnfUg';
           var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            zoom: 17,
-            center: [{{ memorial.longitude }}, {{ memorial.latitude }}]
+            style: 'mapbox://styles/jacksonj04/cjuh76fsv10by1fmo01htulh7'
           });
 
           map.on('load', function() {
 
-            map.addLayer({
-              "id": "points",
-              "type": "symbol",
-              "source": {
-                "type": "geojson",
-                "data": {
-                  "type": "FeatureCollection",
-                  "features": [{
-                    "type": "Feature",
-                    "geometry": {
-                      "type": "Point",
-                      "coordinates": [{{ memorial.longitude }}, {{ memorial.latitude }}]
-                    },
-                    "properties": {
-                      "title": "{{ memorial.pretty_name }}",
-                      "icon": "cemetery"
-                    }
-                  }]
-                }
-              },
-              "layout": {
-                "icon-image": "{icon}-15"
-              }
-            });
+            map.addLayer({{ memorial.outlineGeoJSON|safe }});
+
           });
 
           </script>
+          {% endif %}
 
         </div>
       </div>
