@@ -9,6 +9,7 @@ from django.urls import reverse
 from randomslugfield import RandomSlugField
 from autoslug import AutoSlugField
 
+import json
 
 class Location(models.Model):
 
@@ -123,20 +124,6 @@ class Memorial(models.Model):
         blank=True
     )
 
-    latitude = models.DecimalField(
-        max_digits=9,
-        decimal_places=6,
-        blank=True,
-        null=True
-    )
-
-    longitude = models.DecimalField(
-        max_digits=9,
-        decimal_places=6,
-        blank=True,
-        null=True
-    )
-
     complete = models.BooleanField(
         help_text='Should this memorial\'s record be considered complete?',
     )
@@ -214,6 +201,12 @@ class Name(models.Model):
     )
 
     date_of_death = models.DateField(
+        blank=True,
+        null=True
+    )
+
+    died_aged = models.IntegerField(
+        help_text='If known, the age of this person when they died.',
         blank=True,
         null=True
     )
