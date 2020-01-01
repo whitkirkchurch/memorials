@@ -11,27 +11,3 @@ body {
 .lead {
   font-family: $font-family-sans-serif;
 }
-
-@media (prefers-color-scheme: dark) {
-
-  body {
-    background: $gray-900;
-  }
-
-  .jumbotron {
-    background: $gray-700;
-  }
-
-  p, h1, h2 {
-    color: $gray-200;
-  }
-
-  a {
-    color: #86b7f0;
-  }
-
-  a:hover {
-    color: lighten(#86b7f0, 20%);
-  }
-
-}
