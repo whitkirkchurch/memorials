@@ -139,7 +139,10 @@ class Memorial(models.Model):
     )
 
     def save(self, *args, **kw):
-        self.pretty_name = self.generate_pretty_name()
+
+        # If this is the first time we're saving this, pre-save before generating the pretty name
+        if self._state.adding is False:
+            self.pretty_name = self.generate_pretty_name()
         super(Memorial, self).save(*args, **kw)
 
     def __str__(self):
