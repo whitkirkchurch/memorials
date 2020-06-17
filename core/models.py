@@ -110,7 +110,13 @@ class Memorial(models.Model):
     location_detail = models.CharField(
         max_length=1024,
         blank=True,
-        help_text='Additional information about this memorial\'s location, such as a plot number.'
+        help_text='Additional information about this memorial\'s location, to help identify it if unclear or ambiguous.'
+    )
+
+    plot_reference = models.CharField(
+        max_length=16,
+        blank=True,
+        help_text='This memorial\'s plot reference, if known'
     )
 
     names = models.ManyToManyField(
@@ -189,6 +195,12 @@ class Name(models.Model):
         exclude_digits=True,
         exclude_vowels=True,
         help_text='A randomly generated set of letters used to uniquely identify this person.'
+    )
+
+    import_key = models.UUIDField(
+        null=True,
+        editable=False,
+        help_text='The UUID used to import this name record from the master import sheet, if present'
     )
 
     honorific = models.CharField(max_length=256, blank=True)
