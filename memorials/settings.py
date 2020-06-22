@@ -134,6 +134,8 @@ STATICFILES_FINDERS = [
     'sass_processor.finders.CssFinder',
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 SASS_OUTPUT_STYLE = 'compressed'
 
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
