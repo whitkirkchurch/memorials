@@ -20,6 +20,11 @@ class about(TemplateView):
     template_name = 'about.html'
 
 
+class Disclaimer(TemplateView):
+
+    template_name = 'disclaimer.html'
+
+
 class LocationListView(ListView):
 
     model = models.Location
