@@ -17,6 +17,8 @@ django-sass-processor = "^0.8"
 django-autoslug = "^1.9.7"
 libsass = "^0.20.0"
 django-compressor = "^2.4"
+django-storages = "^1.9.1"
+boto3 = "^1.14.9"
 
 [tool.poetry.dev-dependencies]
 
