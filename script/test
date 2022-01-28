@@ -15,7 +15,7 @@ if [ -n "$1" ]; then
   ./manage.py test "$1"
 else
   echo "==> Running formatting checks…"
-  node_modules/.bin/prettier -c  --prose-wrap always ./**/*.md
+  node_modules/.bin/prettier -c  --prose-wrap always ./**/*.md ./**/*.scss ./**/*.json
   echo "==> Running all tests…"
   coverage run --source='.' manage.py test
   coverage xml
