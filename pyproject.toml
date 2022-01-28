@@ -2,7 +2,7 @@
 name = "whitkirk-memorials"
 version = "0.1.0"
 description = ""
-authors = ["St Mary's Church, Whitkirk <hhello@whitkirkchurch.org.uk>"]
+authors = ["St Mary's Church, Whitkirk <hello@whitkirkchurch.org.uk>"]
 
 [tool.poetry.dependencies]
 python = "3.9.5"
