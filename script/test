@@ -10,14 +10,13 @@ cd "$(dirname "$0")/.."
 
 script/update
 
-echo "==> Running format checks…"
-node_modules/.bin/prettier -c  --prose-wrap always ./**/*.md
-
-echo "==> Running tests…"
-
 if [ -n "$1" ]; then
-  # pass arguments to test call. This is useful for calling a single test.
-  python3 manage.py test "$1"
+  echo "==> Running requested tests…"
+  ./manage.py test "$1"
 else
-  python3 manage.py test
+  echo "==> Running formatting checks…"
+  node_modules/.bin/prettier -c  --prose-wrap always ./**/*.md
+  echo "==> Running all tests…"
+  coverage run --source='.' manage.py test
+  coverage xml
 fi

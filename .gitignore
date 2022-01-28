@@ -5,6 +5,8 @@ staticfiles
 .python-version
 db.sqlite3
 node_modules
+.coverage
+coverage.xml
 
 /memorials/media/
 /memorials/staticfiles/
