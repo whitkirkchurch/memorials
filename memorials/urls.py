@@ -24,8 +24,8 @@ from django.contrib.sitemaps import Sitemap
 
 
 class MemorialsSitemap(Sitemap):
-    changefreq = 'yearly'
-    protocol = 'https'
+    changefreq = "yearly"
+    protocol = "https"
 
     def items(self):
         return Memorial.objects.filter(published=True)
@@ -36,8 +36,8 @@ class MemorialsSitemap(Sitemap):
 
 
 class NamesSitemap(Sitemap):
-    changefreq = 'yearly'
-    protocol = 'https'
+    changefreq = "yearly"
+    protocol = "https"
 
     def items(self):
         return Name.objects.all()
@@ -48,32 +48,36 @@ class NamesSitemap(Sitemap):
 
 
 class TagsSitemap(Sitemap):
-    changefreq = 'yearly'
-    protocol = 'https'
+    changefreq = "yearly"
+    protocol = "https"
 
     def items(self):
         return Tag.objects.all()
 
 
 class LocationsSitemap(Sitemap):
-    changefreq = 'yearly'
-    protocol = 'https'
+    changefreq = "yearly"
+    protocol = "https"
 
     def items(self):
         return Location.objects.all()
 
 
 sitemaps = {
-    'memorials': MemorialsSitemap,
-    'names': NamesSitemap,
-    'tags': TagsSitemap,
-    'locations': LocationsSitemap
+    "memorials": MemorialsSitemap,
+    "names": NamesSitemap,
+    "tags": TagsSitemap,
+    "locations": LocationsSitemap,
 }
 
 urlpatterns = [
-    path('', include('core.urls')),
-    path('markdownx/', include('markdownx.urls')),
-    path('admin/', memorialsadmin.urls),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
-         name='django.contrib.sitemaps.views.sitemap')
+    path("", include("core.urls")),
+    path("markdownx/", include("markdownx.urls")),
+    path("admin/", memorialsadmin.urls),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ]

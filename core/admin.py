@@ -8,22 +8,22 @@ from . import models
 
 
 class MemorialsAdminSite(AdminSite):
-    site_header = 'Memorials administration'
-    site_title = 'Memorials administration'
+    site_header = "Memorials administration"
+    site_title = "Memorials administration"
 
 
-memorialsadmin = MemorialsAdminSite(name='memorialsadmin')
+memorialsadmin = MemorialsAdminSite(name="memorialsadmin")
 
 
 class LocationAdmin(MarkdownxModelAdmin):
-    list_display = ('name',)
+    list_display = ("name",)
 
 
 memorialsadmin.register(models.Location, LocationAdmin)
 
 
 class TagAdmin(MarkdownxModelAdmin):
-    list_display = ('name', 'slug')
+    list_display = ("name", "slug")
 
 
 memorialsadmin.register(models.Tag, TagAdmin)
@@ -53,20 +53,24 @@ mark_unpublished.short_description = "Mark selected memorials as unpublished"
 
 class MemorialAdmin(MarkdownxModelAdmin):
 
-    list_display = ('slug', 'pretty_name', 'names_on_memorial', 'location', 'complete', 'published')
+    list_display = (
+        "slug",
+        "pretty_name",
+        "names_on_memorial",
+        "location",
+        "complete",
+        "published",
+    )
 
-    readonly_fields = ('slug',)
+    readonly_fields = ("slug",)
 
-    list_filter = ('location', 'complete', 'published', 'tags')
+    list_filter = ("location", "complete", "published", "tags")
 
-    search_fields = ('slug', 'pretty_name')
+    search_fields = ("slug", "pretty_name")
 
-    exclude = ('names',)
+    exclude = ("names",)
 
-    inlines = [
-        NameMemorialInline,
-        MemorialImageInline
-    ]
+    inlines = [NameMemorialInline, MemorialImageInline]
 
     actions = [mark_published, mark_unpublished]
 
@@ -75,11 +79,11 @@ memorialsadmin.register(models.Memorial, MemorialAdmin)
 
 
 class NameAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'slug', 'date_of_birth', 'date_of_death')
+    list_display = ("__str__", "slug", "date_of_birth", "date_of_death")
 
-    search_fields = ('given_names', 'family_name', 'slug')
+    search_fields = ("given_names", "family_name", "slug")
 
-    readonly_fields = ('slug',)
+    readonly_fields = ("slug",)
 
 
 memorialsadmin.register(models.Name, NameAdmin)
