@@ -1,0 +1,7 @@
+{
+  "buildpacks": [
+    "heroku/nodejs",
+    "https://github.com/moneymeets/python-poetry-buildpack.git",
+    "heroku/python"
+  ]
+}
